@@ -181,7 +181,8 @@ def update(path, file):
 # Set up logging
 logging.basicConfig(filename='/data/logs/molvis.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-# Check to see if the script 
+# Check to see if the script is still running or failed to complete the last time it ran.
+# We do this by createing a file /data/scripts/molvis-running
 if os.path.isfile('/data/scripts/molvis-running'):
     logging.warning('File /data/scripts/molvis-running exists.')
     logging.warning('Previous run is either still running or failed. Exiting')
