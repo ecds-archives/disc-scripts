@@ -178,6 +178,10 @@ def update(path, file):
 ##
 ################################
 
+# The cron job sends the stardard out into a log file so we can track errors.
+# This line allows us track the times of the rusn
+os.system("echo '*************';echo `date`;echo '*************'")
+
 # Set up logging
 logging.basicConfig(filename='/data/logs/molvis.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
