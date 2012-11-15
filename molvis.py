@@ -178,8 +178,8 @@ def update(path, file):
 ##
 ################################
 
-# The cron job sends the stardard out into a log file so we can track errors.
-# This line allows us track the times of the rusn
+# The cron job sends the standard out into a log file so we can track errors.
+# This line allows us track the times of the runs.
 os.system("echo '*************';echo `date`;echo '*************'")
 
 # Set up logging
