@@ -129,7 +129,7 @@ def update(path, file):
             # We start at zero and move through the list
             num = 0
             for name in article_info.surnames:
-                names = article_info.givennames[num] + ' ' + name + ', ' + names
+                names = article_info.givennames[num] + ' ' + names + ', ' + name
                 num = num + 1
 
             # I'm sure there is a better way to do this, but we just take the numeric month from the XML
