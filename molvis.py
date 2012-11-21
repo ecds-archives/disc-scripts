@@ -16,6 +16,7 @@ class Front(xmlmap.XmlObject):
     day = xmlmap.StringField('front/article-meta/pub-date/day')
     surnames = xmlmap.StringListField('front/article-meta/contrib-group/contrib/name/surname')
     givennames = xmlmap.StringListField('front/article-meta/contrib-group/contrib/name/given-names')
+    name_position = xmlmap.StringListField('front/article-meta/contrib-group/contrib/xref/sup')
     email = xmlmap.StringField('front/article-meta/author-notes/corresp/email')
     send_to = xmlmap.StringField('front/article-meta/author-notes/corresp')
     volume = xmlmap.StringField('front/article-meta/volume')
@@ -129,7 +130,7 @@ def update(path, file):
             # We start at zero and move through the list
             num = 0
             for name in article_info.surnames:
-                names = article_info.givennames[num] + ' ' + names + ', ' + name
+                names = names + article_info.givennames[num] + ' ' + name + ', '
                 num = num + 1
 
             # I'm sure there is a better way to do this, but we just take the numeric month from the XML
@@ -233,3 +234,4 @@ if not os.path.ismount('/dav'):
     logging.info('DAV unmounted')
 elif os.path.ismount('/dav'):
     logging.warning('DAV failed to unmaount')
+
