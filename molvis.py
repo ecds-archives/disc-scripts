@@ -203,6 +203,9 @@ if not os.path.ismount('/dav'):
 else:
         logging.warning('DAV already mounted')
 
+# Let's make sure the /tmp directory is clear so everything unzips as it should
+os.system("rm -rf /tmp/a*")
+
 # Check the to-publish and to-galley folders for new zip files
 paths = ['/dav/to-publish/', '/dav/to-galley/']
 for path in paths:
@@ -233,5 +236,5 @@ os.system('umount /dav')
 if not os.path.ismount('/dav'):
     logging.info('DAV unmounted')
 elif os.path.ismount('/dav'):
-    logging.warning('DAV failed to unmaount')
+    logging.warning('DAV failed to unmount')
 
