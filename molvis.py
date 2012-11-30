@@ -138,11 +138,14 @@ def update(path, file):
             alpha_month = convert_to_month(article_info.month)
             # Concatenate the HTML we will use to update the toc.html file.
             toc_update = '\n\t<p>\n\t\t<font size="4"><b>' + article_info.title + '</b></font><br />\n\t\t<font size="3">' + names[0:-2] + '<br />\n\t\tPublished: ' + article_info.day + ' ' + alpha_month + ' ' + article_info.year + ' [<a href="' + volume + '/' + article_num + '">Full Text</a>]</font>\n\t</p>'
-            toc_update = toc_update.encode('ascii', 'ignore')
+            toc_update = toc_update.encode('utf8')
             
             # Send some values to the above mail function that will generate the email and send it to our
             # email script.
-            mail(send_to, article_info.email, volume, article_num, destination)
+            if article_info.email:
+                mail(send_to, article_info.email, volume, article_num, destination)
+            else:
+                logging.warning('No email address listed in XML file')
 
     # If the original zip file was found in the 'to-publish' folder, we need to update the toc.html
     # If the original zip files was in the 'to-galley' floder, we skip this.
@@ -222,7 +225,8 @@ for path in paths:
             mtime = st.st_mtime
             if (time() - mtime) > 300:
                 # If the file is old enough, we send it on up to the above update function
-                update(path, file)
+                print(path + '\n' + file)
+		update(path, file)
                 # Takes a break to give enough time to process everything before moving to the next file
                 sleep(30)
             else:
