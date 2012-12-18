@@ -126,6 +126,7 @@ def update(path, file):
             # Clean up the value for the author we will email
             send_to = re.sub('Correspondence to: ', "", article_info.send_to)
             send_to = re.sub(',.*', "", send_to)
+            send_to = send_to.encode('utf8')            
             # We have to interate through all the names of the authors and string them together
             # We start at zero and move through the list
             num = 0
