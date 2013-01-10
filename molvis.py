@@ -24,23 +24,23 @@ class Front(xmlmap.XmlObject):
 # Super simple function to convert numeric months to alpha months
 def convert_to_month(num_month):
     alpha_month = ''
-    if num_month == '1':
+    if num_month == '01':
         alpha_month = 'January'
-    elif num_month == '2':
+    elif num_month == '02':
         alpha_month = 'February'
-    elif num_month == '3':
+    elif num_month == '03':
         alpha_month = 'March'
-    elif num_month == '4':
+    elif num_month == '04':
         alpha_month = 'April'
-    elif num_month == '5':
+    elif num_month == '05':
         alpha_month = 'May'
-    elif num_month == '6':
+    elif num_month == '06':
         alpha_month = 'Jume'
-    elif num_month == '7':
+    elif num_month == '07':
         alpha_month = 'July'
-    elif num_month == '8':
+    elif num_month == '08':
         alpha_month = 'August'
-    elif num_month == '9':
+    elif num_month == '09':
         alpha_month = 'September'
     elif num_month == '10':
         alpha_month = 'Ocotober'
