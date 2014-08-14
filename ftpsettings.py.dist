@@ -1,0 +1,6 @@
+'''
+Here you add the server, user and pass for the ftp server.
+'''
+server = 'XXXXXXXXXXX'
+user = 'XXXXXXXXX'
+password = 'XXXXXXX'
