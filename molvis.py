@@ -25,6 +25,7 @@ class Front(xmlmap.XmlObject):
     email = xmlmap.StringField('front/article-meta/author-notes/corresp/email')
     send_to = xmlmap.StringField('front/article-meta/author-notes/corresp')
     volume = xmlmap.StringField('front/article-meta/volume')
+    pubmed_article = xmlmap.StringField('front/article-meta/article-id[@pub-id-type="manuscript"]')
 
 # Super simple function to convert numeric months to alpha months
 def convert_to_month(num_month):
@@ -124,6 +125,7 @@ def update(path, file):
     ext_files = os.listdir(tmp + article_num)
     # Iterate through that list and find the XML file
     for ext_file in ext_files:
+        pubmed_article_num = ''
         if 'XML' in ext_file:
             # Load the XML file into the above EULXML class
             article_info = xmlmap.load_xmlobject_from_file('%s%s/%s' % (tmp, article_num, ext_file), xmlclass=Front)
@@ -133,6 +135,8 @@ def update(path, file):
             send_to = re.sub('Correspondence to: ', "", article_info.send_to)
             send_to = re.sub(',.*', "", send_to)
             send_to = send_to.encode('utf8')
+
+            pubmed_article_num = 'a%s' % article_info.pubmed_article[-4:]
             # We have to interate through all the names of the authors and string them together
             # We start at zero and move through the list
             num = 0
@@ -173,7 +177,7 @@ def update(path, file):
 
         logging.info('TOC upadated with %s' % article_num)
 
-	# Make zip for PubMed
+	      # Make zip for PubMed
         pubmed_files = []
         for ext_file in ext_files:
             article_file = '%s%s/%s' % (tmp, article_num, ext_file)
@@ -197,7 +201,7 @@ def update(path, file):
                 pubmed_files.append(ext_file)
 
         # Zip it up
-        zip_file_name = 'mv-%s-1-%s.zip' % (volume, article_num)
+        zip_file_name = 'mv-%s-1-%s.zip' % (volume, pubmed_article_num)
         zipf = zipfile.ZipFile('/%s/%s' % (tmp, zip_file_name), 'w')
 
         os.chdir('%s/%s' % (tmp, article_num))
@@ -215,7 +219,7 @@ def update(path, file):
         session.quit()
 
         # Build a list of zip files uploaded for emeail to PubMed
-        pubmed_zipd_files.append('%s.zip' % article_num)
+        pubmed_zipd_files.append('%s.zip' % pubmed_article_num)
 
 
     # Make sure the destination/volume folder exists. If it doesn't we need to create it.
